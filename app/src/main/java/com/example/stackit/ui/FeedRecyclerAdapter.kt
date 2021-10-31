@@ -1,10 +1,15 @@
 package com.example.stackit.ui
 
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -45,6 +50,7 @@ class FeedRecyclerAdapter() :
 
     override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
        val item = getItem(position)
+
         holder.binding.tvFirstLine.text = item.title
         holder.binding.tvSecondLine.text= item.owner.displayName
         holder.binding.tvCreatedAt.text = getDateTime(item.creationDate)
@@ -53,7 +59,11 @@ class FeedRecyclerAdapter() :
             val uri: Uri = Uri.parse(item.link) // missing 'http://' will cause crashed
 
             val intent = Intent(Intent.ACTION_VIEW, uri)
+            if (isOnline(context = holder.binding.tvFirstLine.context))
             startActivity(holder.binding.tvFirstLine.context, intent, Bundle())
+            else{
+                Toast.makeText(holder.binding.tvFirstLine.context, "Check Your Connection", Toast.LENGTH_SHORT).show()
+            }
         }
 
     }
@@ -67,6 +77,24 @@ class FeedRecyclerAdapter() :
         } catch (e: Exception) {
             return e.toString()
         }
+    }
+    fun isOnline(context: Context): Boolean {
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val capabilities =
+            connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+        if (capabilities != null) {
+            if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
+                Log.i("Internet", "NetworkCapabilities.TRANSPORT_CELLULAR")
+                return true
+            } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+                Log.i("Internet", "NetworkCapabilities.TRANSPORT_WIFI")
+                return true
+            } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
+                Log.i("Internet", "NetworkCapabilities.TRANSPORT_ETHERNET")
+                return true
+            }
+        }
+        return false
     }
 }
 
