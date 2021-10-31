@@ -3,9 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Kotlin/StackIt/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
+        <entry key="..\:/Kotlin/StackIt/app/src/main/res/drawable/layout_bg.xml" value="0.13055555555555556" />
         <entry key="..\:/Kotlin/StackIt/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Kotlin/StackIt/app/src/main/res/layout/feed_fragment.xml" value="0.264" />
-        <entry key="..\:/Kotlin/StackIt/app/src/main/res/layout/list_items.xml" value="0.152" />
+        <entry key="..\:/Kotlin/StackIt/app/src/main/res/layout/list_items.xml" value="0.1" />
       </map>
     </option>
   </component>

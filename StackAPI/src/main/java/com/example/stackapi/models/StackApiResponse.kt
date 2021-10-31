@@ -57,15 +57,15 @@ data class StackApiResponse(
             @Json(name = "display_name")
             val displayName: String,
             @Json(name = "link")
-            val link: String,
+            val link: String?,
             @Json(name = "profile_image")
-            val profileImage: String,
+            val profileImage: String?,
             @Json(name = "reputation")
-            val reputation: Int,
+            val reputation: Int?,
             @Json(name = "user_id")
-            val userId: Int,
+            val userId: Int?,
             @Json(name = "user_type")
-            val userType: String
+            val userType: String?
         )
     }
 }
